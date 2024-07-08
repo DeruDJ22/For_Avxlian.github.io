@@ -7,6 +7,7 @@ body {
     color: #fff;
     font-family: Arial, sans-serif;
     overflow: hidden;
+    margin: 0;
 }
 
 .text-container {
@@ -14,6 +15,9 @@ body {
 }
 
 #auto-type {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
     font-size: 8em;
     white-space: nowrap;
     overflow: hidden;
@@ -22,29 +26,36 @@ body {
 
 #sub-text {
     font-size: 2em;
-    opacity: 100;
-}
-
-.faded {
-    opacity: 0;
+    opacity: 1;
     transition: opacity 2s ease-in-out;
+    margin-top: 20px;
 }
 
 .visible {
-    opacity: 1; /* Menetapkan opacity ke 1 untuk membuat teks terlihat */
+    opacity: 1;
 }
+
+.letter {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.letter.active {
+    opacity: 1;
+}
+
 #redirect-btn {
-    margin-top: 20px; /* Jarak antara teks dan tombol */
+    margin-top: 20px;
     padding: 10px 20px;
     font-size: 1.5em;
     color: #fff;
     background-color: transparent;
     border: 2px solid #fff;
-    border-radius: 25px; /* Membuat tombol berbentuk oval */
+    border-radius: 25px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 #redirect-btn:hover {
-    background-color: #47b9ff; /* Warna background saat di-hover */
+    background-color: #47b9ff;
 }
