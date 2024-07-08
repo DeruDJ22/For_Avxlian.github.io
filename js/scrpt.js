@@ -2,28 +2,55 @@ document.addEventListener("DOMContentLoaded", function() {
     const textContainer = document.getElementById('auto-type');
     const subText = document.getElementById('sub-text');
     const redirectBtn = document.getElementById('redirect-btn');
-    const text = "Avxlian"; // Ganti dengan nama yang Anda inginkan
-    const typingSpeed = 100; // Kecepatan penulisan dalam milidetik
-    const delayBeforeFade = 1; // Waktu sebelum memulai efek fade dalam milidetik
+    const text = "0Avxlian0";
+    const typingSpeed = 300;
+    const delayBeforeFade = 1000;
 
-    let index = 0;
+    const sequence = [1,7,2,6,3,5,4];
 
     function typeText() {
-        if (index < text.length) {
-            textContainer.innerHTML += text.charAt(index);
-            index++;
-            setTimeout(typeText, typingSpeed);
-        } else {
-            setTimeout(() => {
-                textContainer.classList.add('faded');
-                subText.classList.add('visible'); // Tampilkan teks tambahan setelah nama orang menghilang
-            }, delayBeforeFade);
+        let index = 0;
+        textContainer.innerHTML = ''; 
+
+        // Buat elemen span untuk setiap huruf
+        text.split('').forEach((char, i) => {
+            const span = document.createElement('span');
+            span.className = 'letter';
+            span.textContent = char;
+            textContainer.appendChild(span);
+        });
+
+        function animateLetters() {
+            const letters = textContainer.querySelectorAll('.letter');
+            let currentIndex = 0;
+
+            function highlightLetter() {
+                if (currentIndex < sequence.length) {
+                    letters.forEach((letter, i) => {
+                        letter.classList.remove('active');
+                    });
+
+                    letters[sequence[currentIndex]].classList.add('active');
+                    setTimeout(() => {
+                        letters[sequence[currentIndex]].classList.remove('active');
+                        currentIndex++;
+                        highlightLetter();
+                    }, typingSpeed);
+                } else {
+                    subText.classList.add('visible');
+                }
+            }
+
+            highlightLetter();
         }
+
+        animateLetters();
     }
 
-    redirectBtn.addEventListener('click', function() {
-        window.location.href = 'index1.html'; // Mengarahkan ke index.html saat tombol diklik
-    });
-
+    // Mulai animasi segera
     typeText();
+
+    redirectBtn.addEventListener('click', function() {
+        window.location.href = 'index1.html';
+    });
 });
